@@ -1,5 +1,8 @@
 // @flow strict
 
+import { makeCustom, addListeners } from '../../event.js'
+import { Config } from '../config/config.js'
+
 const template = document.createElement('template')
 
 template.innerHTML = `
@@ -12,19 +15,7 @@ template.innerHTML = `
 		</div>
 	</header>
 	<main>
-		<form>
-			<parasite-config-boardsize></parasite-config-boardsize>
-			<section class="players">
-				<label>
-					Players
-				</label>
-				<parasite-config-player number="1"></parasite-config-player>
-				<parasite-config-player number="2"></parasite-config-player>
-			</section>
-			<section class="buttons">
-				<input type="button" value="New game" />
-			</section>
-		</form>
+		<parasite-config></parasite-config>
 	</main>
 	<footer>
 		Parasite - Game created by CelShadows - Software written by Stéphane Legrand
@@ -39,8 +30,23 @@ class Main extends HTMLElement {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
+    	this._catchEvents()
 	}
 
+	_newGame(o /*: Main */, evt /*: Event */) {
+		if (evt instanceof CustomEvent) {
+			const main = o._shadowRoot.querySelector('main')
+			if (main) {
+				main.innerHTML = '<parasite-game></parasite-game>'
+			}
+		}
+	}
+
+	_catchEvents() {
+		addListeners(this, [
+				{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(this, evt) }
+		])
+	}
 }
 
 export { Main }

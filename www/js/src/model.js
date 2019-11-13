@@ -22,24 +22,21 @@ function Make() /*: T */ {
 					MakePlayer(1, 'Player 1', '#0074d9')
 				,	MakePlayer(2, 'Player 2', '#ff851b')
 			]
+		,	board : []
 	}
-	, boardsize = () => {
-		return _data.boardsize
-	}
-	, setBoardsize = (v) => {
-		_data.boardsize = v
-	}
-	, players = () => {
-		return _data.players
-	}
-	, setPlayers = (v) => {
-		_data.players = v
-	}
+	, boardsize = () => _data.boardsize
+	, setBoardsize = (v) => { _data.boardsize = v }
+	, players = () => _data.players
+	, setPlayers = (v) => { _data.players = v }
+	, board = () => _data.board
+	, setBoard = (v) => { _data.board = v }
 	return(Object.freeze({
 			boardsize
 		,	setBoardsize
 		,	players
 		,	setPlayers
+		,	board
+		,	setBoard
 	}))
 }
 
