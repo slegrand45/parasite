@@ -33,9 +33,9 @@ class Main extends HTMLElement {
     	this._catchEvents()
 	}
 
-	_newGame(o /*: Main */, evt /*: Event */) {
+	_newGame(evt /*: Event */) {
 		if (evt instanceof CustomEvent) {
-			const main = o._shadowRoot.querySelector('main')
+			const main = this._shadowRoot.querySelector('main')
 			if (main) {
 				main.innerHTML = '<parasite-game></parasite-game>'
 			}
@@ -44,7 +44,7 @@ class Main extends HTMLElement {
 
 	_catchEvents() {
 		addListeners(this, [
-				{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(this, evt) }
+				{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(evt) }
 		])
 	}
 }
