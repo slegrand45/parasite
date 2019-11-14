@@ -2,14 +2,19 @@
 
 /*::
 	
-	export type T = {
+	export type T_Ro = {
 			number : () => number
-		,	setNumber : (number) => void
 		,	name : () => string
-		,	setName : (string) => void
 		,	color : () => string
+	}
+
+	type T_Wo = {
+			setNumber : (number) => void
+		,	setName : (string) => void
 		,	setColor : (string) => void
 	}
+
+	export type T = T_Ro & T_Wo
 
 */
 

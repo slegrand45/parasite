@@ -20,7 +20,6 @@ class Application extends HTMLElement {
 /*
 	TODO:
 	Interface
-	Uniquement read-only pour envoi d'infos du modèle aux composants
 	dans composants, une méthode pour set des data depuis l'application ??
 */
 

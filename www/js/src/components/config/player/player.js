@@ -2,7 +2,7 @@
 
 /*::
 
-	import type { T as ModelPlayer } from './../../../models/player.js'
+	import type { T_Ro as ModelPlayer } from './../../../models/player.js'
 
 */
 
