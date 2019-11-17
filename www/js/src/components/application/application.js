@@ -7,9 +7,11 @@
 */
 
 import { addListeners } from '../../event.js'
+import { goToPage } from '../../router.js'
 import { Make as MakeModel } from '../../model.js'
-import { Config } from '../config/config.js'
+import { Board } from '../game/board/board.js'
 import { Boardsize } from '../config/boardsize/boardsize.js'
+import { Config } from '../config/config.js'
 import { Player } from '../config/player/player.js'
 
 class Application extends HTMLElement {
@@ -30,8 +32,9 @@ class Application extends HTMLElement {
 	}
 
 	_newGame(evt /*: Event */) {
-		console.log('Application: _newGame')
-		console.log(evt)
+		if (evt instanceof CustomEvent) {
+			goToPage('/game')
+		}
 	}
 
 	_configBoardsizeReady(evt /*: Event */) {
@@ -77,7 +80,6 @@ class Application extends HTMLElement {
 		if (evt instanceof CustomEvent) {
 			const n = evt.detail.number
 				, color = evt.detail.color
-				, cmp = evt.detail.self
 			if (n > 0) {
 				const player = this._model.players()[n - 1]
 				player.setColor(color)
@@ -85,11 +87,19 @@ class Application extends HTMLElement {
 		}
 	}
 
+	_gameBoardReady(evt /*: Event */) {
+		if (evt instanceof CustomEvent) {
+			const cmp = evt.detail.self
+			cmp.init(this._model.boardsize())
+		}
+	}
+
 	_catchEvents() {
 		addListeners(this, [
-				{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(evt) }
+				{ s : 'ready', cond : o => o instanceof Board, f : (evt) => this._gameBoardReady(evt) }
 			,	{ s : 'ready', cond : o => o instanceof Boardsize, f : (evt) => this._configBoardsizeReady(evt) }
 			,	{ s : 'size', cond : o => o instanceof Boardsize, f : (evt) => this._configBoardsize(evt) }
+			,	{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(evt) }
 			,	{ s : 'ready', cond : o => o instanceof Player, f : (evt) => this._configPlayerReady(evt) }
 			,	{ s : 'name', cond : o => o instanceof Player, f : (evt) => this._configPlayerName(evt) }
 			,	{ s : 'color', cond : o => o instanceof Player, f : (evt) => this._configPlayerColor(evt) }

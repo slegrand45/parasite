@@ -1,6 +1,7 @@
 // @flow strict
 
 import { Config } from './components/config/config.js'
+import { Board } from './components/game/board/board.js'
 import { Boardsize } from './components/config/boardsize/boardsize.js'
 import { Player } from './components/config/player/player.js'
 
@@ -15,6 +16,7 @@ import { Player } from './components/config/player/player.js'
 
 	export type Detail =
 			{| self : Config |}
+		|	{| self : Board |}
 		|	{| self : Boardsize, nb : ?string |}
 		|	{| self : Player, number : ?string |}
 		|	{| self : Player, number : ?string, name : string |}

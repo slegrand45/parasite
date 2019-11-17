@@ -24,7 +24,39 @@ class Board extends HTMLElement {
 	}
 
 	connectedCallback() {
-		//this.dispatchEvent(makeCustom('config/player/ready', { self : this, number : this.getAttribute('number') }))
+		this.dispatchEvent(makeCustom('ready', { self : this }))
+	}
+
+	init(size /*: number */) {
+		// add position cells
+		const n = parseInt(size, 10) + 2
+		console.log(n)
+		let html = ''
+		for(let i = 0; i < n; i++) {
+			html += '<tr>'
+			for(let j = 0; j < n; j++) {
+				if (i == 0 || i == (n - 1)) {
+					if (j > 0 && j < (n - 1)) {
+						html += `<td class="pos">${ j }</td>`
+					} else {
+						html += '<td class="corner"></td>'
+					}
+				} else {
+					if (j == 0 || j == (n - 1)) {
+						html += `<td class="pos">${ i }</td>`
+					} else {
+						html += '<td>&nbsp;</td>'
+					}
+				}
+			}
+			html += '</tr>'
+		}
+		const root = this._shadowRoot
+			,	table = root.querySelector('table')
+		if (table) {
+			table.classList.add('board-' + size)
+			table.innerHTML = html
+		}
 	}
 
 	player() {

@@ -1,14 +1,19 @@
 // @flow strict
 
 import { makeCustom, addListeners } from '../../event.js'
+import { start as routerStart, makePage } from '../../router.js'
 import { Config } from '../config/config.js'
 
 const template = document.createElement('template')
 
+const home = makePage('/')
+
 template.innerHTML = `
 	<link rel="stylesheet" href="js/src/components/main/main.css">
 	<header>
-		<div>Parasite</div>
+		<div>
+			<a href="${ home }">Parasite</a>
+		</div>
 		<div>----</div>
 		<div>
 			<a href="">En</a> | <a href="">Fr</a>
@@ -30,23 +35,9 @@ class Main extends HTMLElement {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
-    	this._catchEvents()
-	}
+		routerStart(() => this._shadowRoot.querySelector('main'))
+	}	
 
-	_newGame(evt /*: Event */) {
-		if (evt instanceof CustomEvent) {
-			const main = this._shadowRoot.querySelector('main')
-			if (main) {
-				main.innerHTML = '<parasite-game></parasite-game>'
-			}
-		}
-	}
-
-	_catchEvents() {
-		addListeners(this, [
-				{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(evt) }
-		])
-	}
 }
 
 export { Main }
