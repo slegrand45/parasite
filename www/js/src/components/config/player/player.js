@@ -34,7 +34,7 @@ class Player extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.dispatchEvent(makeCustom('ready', { self : this, number : this.getAttribute('number') }))
+		this.dispatchEvent(makeCustom({ s : 'ready', self : this, d : { number : this.getAttribute('number') }}))
 	}
 
 	player() {
@@ -70,13 +70,13 @@ class Player extends HTMLElement {
 			&& inputColor instanceof HTMLInputElement) {
 				inputName.oninput = (evt) => {
 					const target = evt.currentTarget
-					this.dispatchEvent(makeCustom('name',
-						{ self : this, number : this.getAttribute('number'), name : target.value }))
+					this.dispatchEvent(makeCustom({ s : 'name',
+						self : this, d : { number : this.getAttribute('number'), name : target.value }}))
 				}
 				inputColor.onchange = (evt) => {
 					const target = evt.currentTarget
-					this.dispatchEvent(makeCustom('color',
-						{ self : this, number : this.getAttribute('number'), color : target.value }))
+					this.dispatchEvent(makeCustom({ s : 'color',
+						self : this, d : { number : this.getAttribute('number'), color : target.value }}))
 				}
 		}
 	}

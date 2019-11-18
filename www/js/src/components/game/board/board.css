@@ -24,17 +24,6 @@ table td {
     vertical-align: top;
 }
 
-td.pos {
-	padding: 0;
-	margin: 0;
-	font-size: 0.4em;
-	vertical-align: middle;
-}
-
-td.corner {
-	border: 0;
-}
-
 table.board-10 {
   height: calc(11 * 1em);
   width: calc(11 * 2em);

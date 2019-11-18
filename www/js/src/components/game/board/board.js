@@ -24,30 +24,17 @@ class Board extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.dispatchEvent(makeCustom('ready', { self : this }))
+		this.dispatchEvent(makeCustom({ s : 'ready', self : this, d : { }}))
 	}
 
 	init(size /*: number */) {
-		// add position cells
-		const n = parseInt(size, 10) + 2
+		const n = parseInt(size, 10)
 		console.log(n)
 		let html = ''
 		for(let i = 0; i < n; i++) {
 			html += '<tr>'
 			for(let j = 0; j < n; j++) {
-				if (i == 0 || i == (n - 1)) {
-					if (j > 0 && j < (n - 1)) {
-						html += `<td class="pos">${ j }</td>`
-					} else {
-						html += '<td class="corner"></td>'
-					}
-				} else {
-					if (j == 0 || j == (n - 1)) {
-						html += `<td class="pos">${ i }</td>`
-					} else {
-						html += '<td>&nbsp;</td>'
-					}
-				}
+				html += `<td data-x="${ j }" data-y="${ i }">&nbsp;</td>`
 			}
 			html += '</tr>'
 		}

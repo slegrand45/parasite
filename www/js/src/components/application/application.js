@@ -96,13 +96,13 @@ class Application extends HTMLElement {
 
 	_catchEvents() {
 		addListeners(this, [
-				{ s : 'ready', cond : o => o instanceof Board, f : (evt) => this._gameBoardReady(evt) }
-			,	{ s : 'ready', cond : o => o instanceof Boardsize, f : (evt) => this._configBoardsizeReady(evt) }
-			,	{ s : 'size', cond : o => o instanceof Boardsize, f : (evt) => this._configBoardsize(evt) }
-			,	{ s : 'newgame', cond : o => o instanceof Config, f : (evt) => this._newGame(evt) }
-			,	{ s : 'ready', cond : o => o instanceof Player, f : (evt) => this._configPlayerReady(evt) }
-			,	{ s : 'name', cond : o => o instanceof Player, f : (evt) => this._configPlayerName(evt) }
-			,	{ s : 'color', cond : o => o instanceof Player, f : (evt) => this._configPlayerColor(evt) }
+				{ s : 'ready', cond : (o /*: Board */) => o instanceof Board, f : (evt) => this._gameBoardReady(evt) }
+			,	{ s : 'ready', cond : (o /*: Boardsize */) => o instanceof Boardsize, f : (evt) => this._configBoardsizeReady(evt) }
+			,	{ s : 'size', cond : (o /*: Boardsize */) => o instanceof Boardsize, f : (evt) => this._configBoardsize(evt) }
+			,	{ s : 'newgame', cond : (o /*: Config */) => o instanceof Config, f : (evt) => this._newGame(evt) }
+			,	{ s : 'ready', cond : (o /*: Player */) => o instanceof Player, f : (evt) => this._configPlayerReady(evt) }
+			,	{ s : 'name', cond : (o /*: Player */) => o instanceof Player, f : (evt) => this._configPlayerName(evt) }
+			,	{ s : 'color', cond : (o /*: Player */) => o instanceof Player, f : (evt) => this._configPlayerColor(evt) }
 		])
 	}
 

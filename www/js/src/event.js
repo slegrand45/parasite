@@ -5,8 +5,7 @@ import { Board } from './components/game/board/board.js'
 import { Boardsize } from './components/config/boardsize/boardsize.js'
 import { Player } from './components/config/player/player.js'
 
-/*::
-
+/*
 	export type Evt =
 			'color'
 		|	'name'
@@ -27,6 +26,30 @@ import { Player } from './components/config/player/player.js'
 	type Cond = (Detail) => bool
 
 	type L = Array<{ s : Evt, cond : Cond, f : F }>
+*/
+
+
+/*::
+
+	export type Custom =
+			{| s : 'newgame', self : Config, d : {| |} |}
+		|	{| s : 'ready', self : Board, d : {| |} |}
+		|	{| s : 'ready', self : Boardsize, d : {| nb : ?string |} |}
+		|	{| s : 'size', self : Boardsize, d : {| nb : ?string |} |}
+		|	{| s : 'ready', self : Player, d : {| number : ?string |} |}
+		|	{| s : 'name', self : Player, d : {| number : ?string, name : string |} |}
+		|	{| s : 'color', self : Player, d : {| number : ?string, color : string |} |}
+
+	type Listener =
+			{| s : 'newgame', cond : (Config) => bool |}
+		|	{| s : 'ready', cond : (Board) => bool |}
+		|	{| s : 'ready', cond : (Boardsize) => bool |}
+		|	{| s : 'size', cond : (Boardsize) => bool |}
+		|	{| s : 'ready', cond : (Player) => bool |}
+		|	{| s : 'name', cond : (Player) => bool |}
+		|	{| s : 'color', cond : (Player) => bool |}
+
+	type L = Array<{ ...Listener, f : (Event) => void }>
 
 */
 
@@ -43,11 +66,11 @@ function addListeners(self /*: HTMLElement */, l /*: L */) {
 	})
 }
 
-function makeCustom(evt /*: Evt */, detail /*: Detail */) {
-	return new CustomEvent(evt, {
+function makeCustom({ s, self, d } /*: Custom */) {
+	return new CustomEvent(s, {
 		bubbles: true,
 		composed: true,
-		detail
+		detail : { self : self, ...d }
 	})
 }
 

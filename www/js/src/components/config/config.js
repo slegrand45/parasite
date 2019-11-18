@@ -37,8 +37,8 @@ class Config extends HTMLElement {
 			,	bt = root.querySelector('input[type=button]')
 		if (bt) {
 			bt.onclick = (evt) => {
-				this.dispatchEvent(makeCustom('newgame', 
-					{ self : this }))
+				this.dispatchEvent(makeCustom({ s : 'newgame',
+					self : this, d : { }}))
 			}
 		}
 	}

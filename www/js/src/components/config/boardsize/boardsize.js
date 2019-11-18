@@ -34,7 +34,7 @@ class Boardsize extends HTMLElement {
 		const 	root = this._shadowRoot
 			,	nb = root.querySelector('.nb')
 		if (nb) {
-			this.dispatchEvent(makeCustom('ready', { self : this, nb : nb.textContent }))
+			this.dispatchEvent(makeCustom({ s : 'ready', self : this, d : { nb : nb.textContent }}))
 		}
 	}
 
@@ -59,7 +59,7 @@ class Boardsize extends HTMLElement {
 			}
 			input.onchange = (evt) => {
 				const target = evt.currentTarget
-				this.dispatchEvent(makeCustom('size', { self : this, nb : target.value }))
+				this.dispatchEvent(makeCustom({ s : 'size', self : this, d : { nb : target.value }}))
 			}
 		}
 	}
