@@ -4,6 +4,11 @@
 
 	import type { T_Ro as ModelPlayer } from './../../../models/player.js'
 
+	export type CustomEvent =
+		|	{| s : 'ready', self : Player, d : {| number : ?string |} |}
+		|	{| s : 'name', self : Player, d : {| number : ?string, name : string |} |}
+		|	{| s : 'color', self : Player, d : {| number : ?string, color : string |} |}
+
 */
 
 import { makeCustom } from '../../../event.js'

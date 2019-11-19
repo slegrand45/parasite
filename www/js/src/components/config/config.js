@@ -1,5 +1,12 @@
 // @flow strict
 
+/*::
+
+	export type CustomEvent =
+		|	{| s : 'newgame', self : Config |}
+
+*/
+
 import { makeCustom } from '../../event.js'
 
 const template = document.createElement('template')
@@ -37,8 +44,7 @@ class Config extends HTMLElement {
 			,	bt = root.querySelector('input[type=button]')
 		if (bt) {
 			bt.onclick = (evt) => {
-				this.dispatchEvent(makeCustom({ s : 'newgame',
-					self : this, d : { }}))
+				this.dispatchEvent(makeCustom({ s : 'newgame', self : this }))
 			}
 		}
 	}

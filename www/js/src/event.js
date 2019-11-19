@@ -5,40 +5,18 @@ import { Board } from './components/game/board/board.js'
 import { Boardsize } from './components/config/boardsize/boardsize.js'
 import { Player } from './components/config/player/player.js'
 
-/*
-	export type Evt =
-			'color'
-		|	'name'
-		|	'newgame'
-		|	'ready'
-		|	'size'
-
-	export type Detail =
-			{| self : Config |}
-		|	{| self : Board |}
-		|	{| self : Boardsize, nb : ?string |}
-		|	{| self : Player, number : ?string |}
-		|	{| self : Player, number : ?string, name : string |}
-		|	{| self : Player, number : ?string, color : string |}
-
-	type F = (Event) => void
-
-	type Cond = (Detail) => bool
-
-	type L = Array<{ s : Evt, cond : Cond, f : F }>
-*/
-
-
 /*::
 
+	import type { CustomEvent as EvtConfig } from './components/config/config.js'
+	import type { CustomEvent as EvtBoard } from './components/game/board/board.js'
+	import type { CustomEvent as EvtBoardsize } from './components/config/boardsize/boardsize.js'
+	import type { CustomEvent as EvtPlayer } from './components/config/player/player.js'
+
 	export type Custom =
-			{| s : 'newgame', self : Config, d : {| |} |}
-		|	{| s : 'ready', self : Board, d : {| |} |}
-		|	{| s : 'ready', self : Boardsize, d : {| nb : ?string |} |}
-		|	{| s : 'size', self : Boardsize, d : {| nb : ?string |} |}
-		|	{| s : 'ready', self : Player, d : {| number : ?string |} |}
-		|	{| s : 'name', self : Player, d : {| number : ?string, name : string |} |}
-		|	{| s : 'color', self : Player, d : {| number : ?string, color : string |} |}
+		| EvtConfig
+		| EvtBoard
+		| EvtBoardsize
+		| EvtPlayer
 
 	type Listener =
 			{| s : 'newgame', cond : (Config) => bool |}
@@ -50,7 +28,6 @@ import { Player } from './components/config/player/player.js'
 		|	{| s : 'color', cond : (Player) => bool |}
 
 	type L = Array<{ ...Listener, f : (Event) => void }>
-
 */
 
 function addListeners(self /*: HTMLElement */, l /*: L */) {
@@ -66,11 +43,15 @@ function addListeners(self /*: HTMLElement */, l /*: L */) {
 	})
 }
 
-function makeCustom({ s, self, d } /*: Custom */) {
-	return new CustomEvent(s, {
+function makeCustom(o /*: Custom */) {
+	let detail = { self : o.self }
+	if (o.d) {
+		detail = { self : o.self, ...o.d }
+	}
+	return new CustomEvent(o.s, {
 		bubbles: true,
 		composed: true,
-		detail : { self : self, ...d }
+		detail
 	})
 }
 

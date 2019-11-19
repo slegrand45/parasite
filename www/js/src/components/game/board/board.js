@@ -1,5 +1,12 @@
 // @flow strict
 
+/*::
+
+	export type CustomEvent =
+		|	{| s : 'ready', self : Board |}
+
+*/
+
 import { makeCustom } from '../../../event.js'
 
 const template = document.createElement('template')
@@ -24,7 +31,7 @@ class Board extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.dispatchEvent(makeCustom({ s : 'ready', self : this, d : { }}))
+		this.dispatchEvent(makeCustom({ s : 'ready', self : this }))
 	}
 
 	init(size /*: number */) {

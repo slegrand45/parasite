@@ -1,5 +1,13 @@
 // @flow strict
 
+/*::
+
+	export type CustomEvent =
+		|	{| s : 'ready', self : Boardsize, d : {| nb : ?string |} |}
+		|	{| s : 'size', self : Boardsize, d : {| nb : ?string |} |}
+
+*/
+
 import { makeCustom } from '../../../event.js'
 
 const template = document.createElement('template')
