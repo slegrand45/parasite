@@ -12,6 +12,7 @@
  		<parasite-main />
  	</parasite-application>
  </body>
+ <!--
  <script type="module">
  	import { main } from './js/src/main.js'
  	function ready() {
@@ -22,5 +23,17 @@
  		}
  	}
  	ready()
+ </script>
+ -->
+ <script src="./js/dist/main.js"></script>
+ <script>
+ 	function ready() {
+ 		if (document.readyState != 'loading') {
+ 			main()
+ 		} else {
+ 			document.addEventListener('DOMContentLoaded', main)
+ 		}
+ 	}
+ 	//ready()
  </script>
  </html>
