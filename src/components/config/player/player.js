@@ -12,11 +12,11 @@
 */
 
 import { makeCustom } from '../../../event.js'
+import { style } from './player-style.js'
 
 const template = document.createElement('template')
 
 template.innerHTML = `
-	<link rel="stylesheet" href="js/src/components/config/player/player.css">
 	<div class="wrapper">
 		<input type="text" />
 		<input type="color" />
@@ -33,6 +33,7 @@ class Player extends HTMLElement {
 	constructor() {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
+		this._shadowRoot.appendChild(style())
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
     	this._player = null
     	this._attachEvents()

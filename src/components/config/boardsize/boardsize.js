@@ -9,11 +9,11 @@
 */
 
 import { makeCustom } from '../../../event.js'
+import { style } from './boardsize-style.js'
 
 const template = document.createElement('template')
 
 template.innerHTML = `
-	<link rel="stylesheet" href="js/src/components/config/boardsize/boardsize.css">
 	<section class="boardsize">
 		<label>
 			<div class="label">
@@ -34,6 +34,7 @@ class Boardsize extends HTMLElement {
 	constructor() {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
+		this._shadowRoot.appendChild(style())
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
     	this._attachEvents()
 	}

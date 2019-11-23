@@ -8,11 +8,11 @@
 */
 
 import { makeCustom } from '../../event.js'
+import { style } from './config-style.js'
 
 const template = document.createElement('template')
 
 template.innerHTML = `
-	<link rel="stylesheet" href="js/src/components/config/config.css">
 	<form>
 		<parasite-config-boardsize></parasite-config-boardsize>
 		<section class="players">
@@ -35,6 +35,7 @@ class Config extends HTMLElement {
 	constructor() {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
+		this._shadowRoot.appendChild(style())
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
     	this._attachEvents()
 	}

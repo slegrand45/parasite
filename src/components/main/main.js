@@ -3,13 +3,13 @@
 import { makeCustom, addListeners } from '../../event.js'
 import { start as routerStart, makePage } from '../../router.js'
 import { Config } from '../config/config.js'
+import { style } from './main-style.js'
 
 const template = document.createElement('template')
 
 const home = makePage('/')
 
 template.innerHTML = `
-	<link rel="stylesheet" href="js/src/components/main/main.css">
 	<header>
 		<div>
 			<a href="${ home }">Parasite</a>
@@ -34,6 +34,7 @@ class Main extends HTMLElement {
 	constructor() {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
+		this._shadowRoot.appendChild(style())
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
 		routerStart(() => this._shadowRoot.querySelector('main'))
 	}	

@@ -1,15 +1,22 @@
 // @flow strict
 
-import { makeCustom } from '../../event.js'
+/*::
+
+	export type CustomEvent =
+		|	{| s : 'ready', self : Board |}
+
+*/
+
+import { makeCustom } from '../../../event.js'
+import { style } from './board-style.js'
 
 const template = document.createElement('template')
 
 template.innerHTML = `
-	<link rel="stylesheet" href="js/src/components/game/game.css">
-	<parasite-game-board></parasite-game-board>
+	<table></table>
 `
 
-class Game extends HTMLElement {
+class Board extends HTMLElement {
 
 	/*::
 		_shadowRoot : ShadowRoot
@@ -18,13 +25,33 @@ class Game extends HTMLElement {
 	constructor() {
 		super()
 		this._shadowRoot = this.attachShadow({ mode: 'open' })
+		this._shadowRoot.appendChild(style())
     	this._shadowRoot.appendChild(template.content.cloneNode(true))
     	//this._player = null
     	this._attachEvents()
 	}
 
 	connectedCallback() {
-		//this.dispatchEvent(makeCustom('config/player/ready', { self : this, number : this.getAttribute('number') }))
+		this.dispatchEvent(makeCustom({ s : 'ready', self : this }))
+	}
+
+	init(size /*: number */) {
+		const n = parseInt(size, 10)
+		console.log(n)
+		let html = ''
+		for(let i = 0; i < n; i++) {
+			html += '<tr>'
+			for(let j = 0; j < n; j++) {
+				html += `<td data-x="${ j }" data-y="${ i }">&nbsp;</td>`
+			}
+			html += '</tr>'
+		}
+		const root = this._shadowRoot
+			,	table = root.querySelector('table')
+		if (table) {
+			table.classList.add('board-' + size)
+			table.innerHTML = html
+		}
 	}
 
 	player() {
@@ -73,4 +100,4 @@ class Game extends HTMLElement {
 
 }
 
-export { Game }
+export { Board }
